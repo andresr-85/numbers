@@ -39,7 +39,7 @@ let state = {
   },
   stats: { total: 0, correct: 0, streak: 0 },
   mistakes: [], // {q, expected, user, ts}
-  session: { current: null, expected: '', display: '', answerType: 'words' }
+  session: { current: null, expected: '', display: '', answerType: 'words', answered: false }
 };
 
 // Load saved state
@@ -161,6 +161,7 @@ function newQuestion(fromMistakes=false){
     }
   }
   state.session.current = Date.now();
+  state.session.answered = false;
   $.answer.value = '';
   setFeedback('');
   speakPrompt();
@@ -314,14 +315,24 @@ $.form.addEventListener('submit', (e) => {
 
   speakResult(correct);
   updateStats(correct);
+  state.session.answered = true;
 });
 
 $.reveal.addEventListener('click', () => {
   if (!state.session.expected) return;
   setFeedback(`ℹ️ ${state.session.expected}`);
+  if (!state.session.answered) {   // <---- solo contar fallo si aún no estaba contestada
+    updateStats(false);
+    state.session.answered = true; // marcar como contestada después de reveal
+  }
 });
 
-$.next.addEventListener('click', () => newQuestion());
+$.next.addEventListener('click', () => {
+  console.log(state.session.answered);
+  if (state.session.answered == false) {
+    updateStats(false);
+  }
+  newQuestion()});
 
 $.repit.addEventListener('click', () => speakPrompt());
 
