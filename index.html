@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Numbers in English — Practice</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="numbers.css" />
+  <script defer src="numbers.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Numbers in English</h1>
+    <p class="subtitle">Practice reading & writing numbers</p>
+  </header>
+
+  <main class="card">
+    <section class="controls">
+      <div class="control">
+        <label for="mode">Mode</label>
+        <select id="mode">
+          <option value="toWords">Write the words</option>
+          <option value="toNumber">Write the digits</option>
+          <option value="review">Review mistakes</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label for="range">Range</label>
+        <select id="range">
+          <option value="0-20">0–20 (starter)</option>
+          <option value="0-100" selected>0–100</option>
+          <option value="0-1000">0–1.000</option>
+          <option value="0-1000000">0–1.000.000</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+
+      <div id="customRange" class="custom-range hidden">
+        <label>Min <input id="min" type="number" value="0" min="0" max="1000000" inputmode="numeric"></label>
+        <label>Max <input id="max" type="number" value="100" min="0" max="1000000" inputmode="numeric"></label>
+      </div>
+
+      <div class="toggles">
+        <label class="switch">
+          <input id="britishAnd" type="checkbox">
+          <span>Allow “and” (British)</span>
+        </label>
+        <label class="switch">
+          <input id="tts" type="checkbox" checked>
+          <span>Speak the prompt</span>
+        </label>
+        <label class="switch">
+          <input id="strictHyphen" type="checkbox">
+          <span>Strict hyphens (twenty-one)</span>
+        </label>
+      </div>
+
+      <button id="start" class="btn primary">Start</button>
+    </section>
+
+    <section class="question">
+      <div id="prompt" class="prompt" aria-live="polite"></div>
+      <form id="answerForm" class="answer-row" autocomplete="off">
+        <input id="answer" class="answer" placeholder="Type your answer…" aria-label="Your answer">
+        <button type="submit" class="btn success">Check</button>
+        <button id="reveal" type="button" class="btn warn">Reveal</button>
+        <button id="repit" type="button" class="btn">Repit</button>
+        <button id="next" type="button" class="btn">Next</button>
+      </form>
+      <div id="feedback" class="feedback" aria-live="assertive"></div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span id="total">0</span><small>answered</small></div>
+      <div class="stat"><span id="correct">0</span><small>correct</small></div>
+      <div class="stat"><span id="streak">0</span><small>streak</small></div>
+      <div class="stat"><span id="accuracy">0%</span><small>accuracy</small></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <button id="reset" class="btn ghost">Reset progress</button>
+    <button id="export" class="btn ghost">Export mistakes</button>
+  </footer>
+
+  <template id="confetti">
+    <div class="confetti"></div>
+  </template>
+</body>
+</html>
